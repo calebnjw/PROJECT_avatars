@@ -1,6 +1,6 @@
 const BaseController = require('./baseController');
 
-class ItemController extends BaseController {
+class avatarController extends BaseController {
   constructor(model) {
     super(model);
   };

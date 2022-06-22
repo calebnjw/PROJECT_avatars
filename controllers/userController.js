@@ -15,14 +15,33 @@ export default class UserController extends BaseController {
   };
 
   async getUser(request, response) {
-    const { data } = request.body;
-    const output = await this.model.findOne({ where: { username } });
-    response.status(200).json(output);
+    const { username, password } = request.body;
+
+    const user = await this.model.findOne({ where: { username } });
+
+    // bcrypt has password here
+
+    // then compare hashed passwords
+    if (user.password === password) {
+      console.log('User match');
+      response.cookie('loggedIn', true);
+      response.cookie('userID', user.id);
+
+      response.send({ loggedIn: true });
+    }
   };
 
   async newUser(request, response) {
-    const { data } = request.body;
-    const output = await this.model.create({ ...data });
-    response.status(200).json(output);
+    try {
+      const { username, password } = request.body;
+      const user = await this.model.create({ ...data });
+
+      if (user) {
+        response.send({ signedUp: true });
+      }
+    } catch (error) {
+      console.log(error);
+      response.send({ error })
+    }
   };
 };

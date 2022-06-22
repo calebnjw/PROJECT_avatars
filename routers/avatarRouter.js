@@ -1,14 +1,15 @@
 const express = require('express');
 const router = express.Router();
 
-class ItemRouter {
+export default class AvatarRouter {
   constructor(controller) {
     this.controller = controller
-  }
+  };
+
   router() {
     // insert routes here
-    return router;
-  }
-}
+    router.post('/create', this.controller.newAvatar.bind(this.controller));
 
-module.exports = ItemRouter;
+    return router;
+  };
+};

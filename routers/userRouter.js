@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-class UserRouter {
+export default class UserRouter {
   constructor(controller) {
     this.controller = controller
   };
@@ -9,12 +9,12 @@ class UserRouter {
   router() {
     // insert routes here
     // have to .bind(this.controller) at the end of each route
-    router.get('/test', this.controller.testRoute.bind(this.controller));
-    router.get('/utest', this.controller.userRoute.bind(this.controller));
-    router.post('/add-user', this.controller.insertOne.bind(this.controller));
+    router.get('/login', this.controller.getLogin.bind(this.controller));
+    router.get('/signup', this.controller.getSignup.bind(this.controller));
+
+    router.post('/login', this.controller.getUser.bind(this.controller));
+    router.post('/signup', this.controller.newUser.bind(this.controller));
 
     return router;
   };
 };
-
-module.exports = UserRouter;

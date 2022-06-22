@@ -1,23 +1,28 @@
 const BaseController = require('./baseController');
+const bcrypt = require('bcrypt');
 
-class UserController extends BaseController {
+export default class UserController extends BaseController {
   constructor(model) {
     super(model);
   };
 
-  userRoute(request, response) {
-    response.send('User route.');
+  getLogin(request, response) {
+    response.render('login');
   };
 
-  testRoute(request, response) {
-    response.send('This test is in user route.');
+  getSignup(request, response) {
+    response.render('signup');
   };
 
-  async insertOne(request, response) {
+  async getUser(request, response) {
+    const { data } = request.body;
+    const output = await this.model.findOne({ where: { username } });
+    response.status(200).json(output);
+  };
+
+  async newUser(request, response) {
     const { data } = request.body;
     const output = await this.model.create({ ...data });
     response.status(200).json(output);
   };
 };
-
-module.exports = UserController;

@@ -1,6 +1,6 @@
 const { Router } = require("express");
 
-class BaseController {
+export default class BaseController {
   constructor(model) {
     this.model = model;
   };
@@ -9,5 +9,3 @@ class BaseController {
     response.send('This works.');
   };
 };
-
-module.exports = BaseController;

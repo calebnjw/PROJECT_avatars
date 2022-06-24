@@ -22,29 +22,10 @@ module.exports = {
         name: {
           type: Sequelize.STRING,
         },
-        background_id: {
+        avatar_contents: {
           allowNull: false,
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'avatar_background',
-            key: 'id',
-          },
-        },
-        base_id: {
-          allowNull: false,
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'avatar_base',
-            key: 'id',
-          },
-        },
-        face_id: {
-          allowNull: false,
-          type: Sequelize.INTEGER,
-          references: {
-            model: 'avatar_face',
-            key: 'id',
-          },
+          type: Sequelize.ARRAY(Sequelize.JSON),
+          defaultValue: [{}, {}, {}],
         },
         created_at: {
           allowNull: false,

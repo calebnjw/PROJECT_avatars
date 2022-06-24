@@ -19,29 +19,10 @@ export default function initAvatarModel(sequelize, DataTypes) {
       name: {
         type: DataTypes.STRING,
       },
-      backgroundId: {
+      avatar_contents: {
         allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'avatar_background',
-          key: 'id',
-        },
-      },
-      baseId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'avatar_base',
-          key: 'id',
-        },
-      },
-      faceId: {
-        allowNull: false,
-        type: DataTypes.INTEGER,
-        references: {
-          model: 'avatar_face',
-          key: 'id',
-        },
+        type: DataTypes.ARRAY(DataTypes.JSON),
+        defaultValue: [{}, {}, {}],
       },
       createdAt: {
         allowNull: false,

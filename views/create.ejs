@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Rocketars - Create</title>
+    <%- include('partials/head.ejs') %> // other things that go in the head <%-
+    include('partials/scripts.ejs') %> // axios and bootstrap scripts <%-
+    include('partials/styles.ejs') %> // bootstrap and custom styles
+  </head>
+  <body>
+    <!-- navbar with page name + signin / signup buttons -->
+
+    <!-- big container that holds item picker on left, and canvas on right -->
+    <!-- ----- -->
+    <!-- item picker has rows showing different parts of avatar to choose from -->
+    <!-- under each row header, a crop of the image -->
+    <!-- -> can use something like coordinates [0,0], [0,1] -->
+    <!-- -> multiplied by size of image crop to crop out parts -->
+    <!-- -> see: https://www.youtube.com/watch?v=IYgZMIB7_PM -->
+    <!-- ----- -->
+    <!-- canvas updates to show chosen part -->
+    <!-- data is stored in an array with dictionary -->
+    <!-- -> [{"0-0": [0,1]}, {"0-0": [1,0]}, {"0-0": [1,0]}] -->
+    <!-- -> [(background layer), (base layer), (face layer)] -->
+    <!-- -> background layer saves position on canvas "0-0" -->
+    <!-- -> "0-0" for all because there's only one place to draw it (and fill whole canvas) -->
+    <!-- -> keeping the dictionary because if I want to add stickers on top, -->
+    <!-- -> I could do that in the future without changing data structure. -->
+    <!-- ----- -->
+    <!-- save and download button -->
+    <!-- save button prompts user to login if they are not logged in. -->
+    <!-- if logged in, save array to database -->
+    <!-- download button opens image in new window / tab for user to save image -->
+
+    <!-- <script src="../login.js"></script> -->
+  </body>
+</html>

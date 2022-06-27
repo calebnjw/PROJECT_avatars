@@ -1,25 +1,32 @@
 console.log('LOGIN');
 
-const signupButton = document.getElementById('signupButton');
+const signupButton = document.getElementById('signup-button');
+const errorMessage = document.getElementById('error-message');
 
-const submitLogin = async () => {
+const submitSignup = async () => {
+  errorMessage.innerText = '';
+
+  const username = document.querySelector('input[name="username"]').value;
+  const password = document.querySelector('input[name="password"]').value;
+
+  console.log('EMAIL', username, 'PASSWORD', password);
+
   try {
-    const email = document.querySelector('input[name="email"]').value;
-    const password = document.querySelector('input[name="password"]').value;
-
-    console.log('EMAIL', email, 'PASSWORD', password);
-
-    const { data } = await axios.post('/users/signup', {
-      email,
+    const { data } = await axios.post('/user/signup', {
+      username,
       password,
     });
 
+    console.log(data);
+
     if (data.signedUp) {
-      window.location.href = '/login';
+      window.location.href = '/user/login';
+    } else {
+      errorMessage.innerText = 'Username must be unique.';
     }
   } catch (error) {
     console.log(error);
   }
 };
 
-loginButton.addEventListener('click', submitLogin);
+signupButton.addEventListener('click', submitSignup);

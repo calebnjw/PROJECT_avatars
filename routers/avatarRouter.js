@@ -1,22 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-export default class AvatarRouter {
+class AvatarRouter {
   constructor(controller) {
     this.controller = controller
   };
 
   router() {
     // insert routes here
-    router.get('/', (request, response) => {
-      response.redirect('/create');
-    })
-    router.get('/create', (request, response) => {
-      response.render(create);
-    })
+    router.get('/', (request, response) => response.redirect('/create'));
+    router.get('/create', this.controller.getCreator.bind(this.controller));
 
-    router.post('/create', this.controller.newAvatar.bind(this.controller));
+    // router.post('/create', this.controller.newAvatar.bind(this.controller));
 
     return router;
   };
 };
+
+module.exports = AvatarRouter;

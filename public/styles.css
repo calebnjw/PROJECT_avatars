@@ -1,0 +1,53 @@
+body {
+  background-color: black;
+  color: gainsboro;
+  font-family: "IBM Plex Mono", "Courier New", Courier, monospace;
+}
+
+#creator-canvas {
+  background-color: white;
+}
+
+.btn {
+  border-radius: 0;
+  border-width: 0.1em;
+}
+
+.nav-tabs .nav-link {
+  border-radius: 0;
+  border-width: 0.1em;
+}
+
+.canvas-container {
+  border-style: solid;
+  border-color: white;
+  border-width: 0.2em;
+}
+
+.picker-section {
+  border-style: solid;
+  border-color: white;
+  border-width: 0.2em;
+}
+
+.part-grid {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  gap: 16px 12px;
+}
+
+.part {
+  max-width: 10em;
+  max-height: 10em;
+  background-color: white;
+
+  border-bottom: 0.2em solid gray;
+  border-right: 0.2em solid gray;
+}
+
+.selected {
+  border-bottom: none;
+  border-right: none;
+  border-top: 0.2em solid greenyellow;
+  border-left: 0.2em solid greenyellow;
+}

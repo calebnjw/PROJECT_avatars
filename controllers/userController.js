@@ -1,47 +1,71 @@
 const BaseController = require('./baseController');
 const bcrypt = require('bcrypt');
+const cookieParser = require('cookie-parser');
 
-export default class UserController extends BaseController {
+const saltRounds = 10;
+
+class UserController extends BaseController {
   constructor(model) {
     super(model);
   };
 
-  getLogin(request, response) {
-    response.render('login');
-  };
-
-  getSignup(request, response) {
-    response.render('signup');
-  };
-
   async getUser(request, response) {
-    const { username, password } = request.body;
+    try {
+      const { username, password } = request.body;
 
-    const user = await this.model.findOne({ where: { username } });
+      const user = await this.model.findOne({ where: { username } });
 
-    // bcrypt has password here
+      console.log(user);
 
-    // then compare hashed passwords
-    if (user.password === password) {
-      console.log('User match');
-      response.cookie('loggedIn', true);
-      response.cookie('userID', user.id);
+      // use bcrypt to compare hashed passwords
+      bcrypt.compare(password, user.password, (error, result) => {
+        if (result) {
+          console.log('Password match!');
+          response.cookie('loggedIn', true);
+          response.cookie('userID', user.id);
 
-      response.send({ loggedIn: true });
+          response.send({ loggedIn: true });
+        } else {
+          response.send(false)
+        }
+      });
+    } catch (error) {
+      console.log(error);
+      response.send({ error })
     }
   };
 
   async newUser(request, response) {
     try {
       const { username, password } = request.body;
-      const user = await this.model.create({ ...data });
 
-      if (user) {
-        response.send({ signedUp: true });
-      }
+      // use bcrypt to hash passwords
+      bcrypt.hash(password, saltRounds, async (error, hash) => {
+        console.log(hash);
+
+        const user = await this.model.create({ username, password: hash });
+
+        if (user) {
+          // tell frontend that signup was successful
+          response.send({ signedUp: true });
+        }
+      });
     } catch (error) {
       console.log(error);
       response.send({ error })
     }
   };
+
+  logout(request, response) {
+    // delete login cookies on logout
+    if (request.loggedIn) {
+      response.clearCookie('loggedIn');
+      response.clearCookie('userID');
+    }
+
+    // redirect to login page
+    response.redirect('/user/login');
+  };
 };
+
+module.exports = UserController;

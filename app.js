@@ -10,8 +10,8 @@ const db = require('./models/index.js');
 const UserController = require('./controllers/userController.js');
 const AvatarController = require('./controllers/avatarController.js');
 // initialise controllers
-const userController = new UserController(db.users);
-const avatarController = new AvatarController(db.items, db);
+const userController = new UserController(db.User);
+const avatarController = new AvatarController(db.Avatar, db);
 
 // import routers
 const UserRouter = require('./routers/userRouter.js');
@@ -47,9 +47,9 @@ app.use((request, response, next) => {
   next();
 });
 
-app.get('/', (request, response) => response.redirect('/users'))
-app.use('/users', userRouter);
-app.use('/avatars', avatarRouter);
+app.get('/', (request, response) => response.redirect('/users/login'))
+app.use('/user', userRouter);
+app.use('/avatar', avatarRouter);
 
 
 const PORT = 3004;

@@ -2,35 +2,68 @@
 <html lang="en">
   <head>
     <title>Rocketars - Create</title>
-    <%- include('partials/head.ejs') %> // other things that go in the head <%-
-    include('partials/scripts.ejs') %> // axios and bootstrap scripts <%-
-    include('partials/styles.ejs') %> // bootstrap and custom styles
+    <!-- other things that go in the head -->
+    <%- include('partials/head.ejs') %>
+    <!-- axios and bootstrap scripts  -->
+    <%- include('partials/scripts.ejs') %>
+    <!-- bootstrap and custom styles -->
+    <%-include('partials/styles.ejs') %>
   </head>
   <body>
     <!-- navbar with page name + signin / signup buttons -->
+    <%- include('partials/navbar.ejs') %>
 
     <!-- big container that holds item picker on left, and canvas on right -->
-    <!-- ----- -->
-    <!-- item picker has rows showing different parts of avatar to choose from -->
-    <!-- under each row header, a crop of the image -->
-    <!-- -> can use something like coordinates [0,0], [0,1] -->
-    <!-- -> multiplied by size of image crop to crop out parts -->
-    <!-- -> see: https://www.youtube.com/watch?v=IYgZMIB7_PM -->
-    <!-- ----- -->
-    <!-- canvas updates to show chosen part -->
-    <!-- data is stored in an array with dictionary -->
-    <!-- -> [{"0-0": [0,1]}, {"0-0": [1,0]}, {"0-0": [1,0]}] -->
-    <!-- -> [(background layer), (base layer), (face layer)] -->
-    <!-- -> background layer saves position on canvas "0-0" -->
-    <!-- -> "0-0" for all because there's only one place to draw it (and fill whole canvas) -->
-    <!-- -> keeping the dictionary because if I want to add stickers on top, -->
-    <!-- -> I could do that in the future without changing data structure. -->
-    <!-- ----- -->
-    <!-- save and download button -->
-    <!-- save button prompts user to login if they are not logged in. -->
-    <!-- if logged in, save array to database -->
-    <!-- download button opens image in new window / tab for user to save image -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 col-lg-8 order-lg-2 mb-3 p-3 canvas-container">
+          <header class="my-3">
+            <h1>Creator</h1>
+            <button class="btn btn-outline-danger" id="reset-button">
+              <i class="fa-solid fa-arrow-rotate-left"></i> Reset
+            </button>
+            <button class="btn btn-outline-secondary" id="shuffle-button">
+              <i class="fa-solid fa-shuffle"></i> Shuffle
+            </button>
+          </header>
+          <img id="avatar-source" style="display: none" crossorigin />
+          <!-- ----- -->
+          <!-- canvas updates to show chosen part -->
+          <!-- data is stored in an array with dictionary -->
+          <!-- -> [{"0-0": [0,1]}, {"0-0": [1,0]}, {"0-0": [1,0]}] -->
+          <!-- -> [(background layer), (base layer), (face layer)] -->
+          <!-- -> background layer saves position on canvas "0-0" -->
+          <!-- -> "0-0" for all because there's only one place to draw it (and fill whole canvas) -->
+          <!-- -> keeping the dictionary because if I want to add stickers on top, -->
+          <!-- -> I could do that in the future without changing data structure. -->
+          <!-- ----- -->
+          <!-- save and download button -->
+          <!-- save button prompts user to login if they are not logged in. -->
+          <!-- if logged in, save array to database -->
+          <!-- download button opens image in new window / tab for user to save image -->
+          <div class="mb-3">
+            <canvas id="creator-canvas" width="320px" height="320px"></canvas>
+          </div>
+          <div>
+            <button class="btn btn-outline-primary" id="download-button">
+              <i class="fa-solid fa-download"></i> Download
+            </button>
+            <button class="btn btn-outline-primary" id="save-button">
+              <i class="fa-solid fa-floppy-disk"></i> Save
+            </button>
+          </div>
+        </div>
+        <div class="col-12 col-lg-4 order-lg-1 picker" id="picker-container">
+          <!-- ----- -->
+          <!-- item picker has rows showing different parts of avatar to choose from -->
+          <!-- under each row header, a crop of the image -->
+          <!-- -> can use something like coordinates [0,0], [0,1] -->
+          <!-- -> multiplied by size of image crop to crop out parts -->
+          <!-- -> see: https://www.youtube.com/watch?v=IYgZMIB7_PM -->
+        </div>
+      </div>
+    </div>
 
-    <!-- <script src="../login.js"></script> -->
+    <script src="../create.js"></script>
   </body>
 </html>

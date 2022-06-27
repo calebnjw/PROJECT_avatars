@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-export default class UserRouter {
+class UserRouter {
   constructor(controller) {
     this.controller = controller
   };
@@ -15,6 +15,10 @@ export default class UserRouter {
     router.post('/login', this.controller.getUser.bind(this.controller));
     router.post('/signup', this.controller.newUser.bind(this.controller));
 
+    router.get('/logout', this.controller.logout.bind(this.controller));
+
     return router;
   };
 };
+
+module.exports = UserRouter;

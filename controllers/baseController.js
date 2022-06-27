@@ -1,11 +1,22 @@
 const { Router } = require("express");
 
-export default class BaseController {
+class BaseController {
   constructor(model) {
     this.model = model;
   };
 
-  testRoute(request, response) {
-    response.send('This works.');
+  getLogin(request, response) {
+    response.render('login');
   };
+
+  getSignup(request, response) {
+    response.render('signup');
+  };
+
+  getCreator(request, response) {
+    response.render('create');
+  };
+
 };
+
+module.exports = BaseController;

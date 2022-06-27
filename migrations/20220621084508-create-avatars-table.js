@@ -25,7 +25,7 @@ module.exports = {
         avatar_contents: {
           allowNull: false,
           type: Sequelize.ARRAY(Sequelize.JSON),
-          defaultValue: [{}, {}, {}],
+          defaultValue: [{ "0-0": [0, 0] }, { "0-0": [0, 1] }, { "0-0": [0, 2] }],
         },
         created_at: {
           allowNull: false,

@@ -1,4 +1,4 @@
-export default function initAvatarModel(sequelize, DataTypes) {
+function initAvatarModel(sequelize, DataTypes) {
   return sequelize.define(
     'avatar',
     {
@@ -19,10 +19,10 @@ export default function initAvatarModel(sequelize, DataTypes) {
       name: {
         type: DataTypes.STRING,
       },
-      avatar_contents: {
+      avatarContents: {
         allowNull: false,
         type: DataTypes.ARRAY(DataTypes.JSON),
-        defaultValue: [{}, {}, {}],
+        defaultValue: [{ "0-0": [0, 0] }, { "0-0": [0, 1] }, { "0-0": [0, 2] }],
       },
       createdAt: {
         allowNull: false,
@@ -38,3 +38,5 @@ export default function initAvatarModel(sequelize, DataTypes) {
     },
   );
 }
+
+module.exports = initAvatarModel;

@@ -2,19 +2,24 @@
 <html lang="en">
   <head>
     <title>Rocketars - Login</title>
-    <%- include('partials/head.ejs') %> // other things that go in the head <%-
-    include('partials/scripts.ejs') %> // axios and bootstrap scripts <%-
-    include('partials/styles.ejs') %> // bootstrap and custom styles
+    <!-- other things that go in the head -->
+    <%- include('partials/head.ejs') %>
+    <!-- axios and bootstrap scripts  -->
+    <%- include('partials/scripts.ejs') %>
+    <!-- bootstrap and custom styles -->
+    <%-include('partials/styles.ejs') %>
   </head>
   <body>
     <h1>Login</h1>
-    <p>Don't have an account? <a href="/users/signup">Click here to signup.</a></p>
+    <p>Don't have an account? <a href="/user/signup">Click here to signup.</a></p>
     <label for="username"> Username </label>
     <input type="text" id="username" name="username" placeholder="Username" />
     <label for="password"> Password </label>
     <input type="password" id="password" name="password" placeholder="Password" />
 
-    <button type="submit" id="loginButton">Login</button>
+    <button class="btn btn-outline-primary" type="submit" id="login-button">Login</button>
+
+    <div id="error-message"></div>
 
     <script src="../login.js"></script>
   </body>

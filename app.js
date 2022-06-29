@@ -10,7 +10,7 @@ const db = require('./models/index.js');
 const UserController = require('./controllers/userController.js');
 const AvatarController = require('./controllers/avatarController.js');
 // initialise controllers
-const userController = new UserController(db.User);
+const userController = new UserController(db.User, db);
 const avatarController = new AvatarController(db.Avatar, db);
 
 // import routers

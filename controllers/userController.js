@@ -1,15 +1,18 @@
 const BaseController = require('./baseController');
 const bcrypt = require('bcrypt');
 const cookieParser = require('cookie-parser');
+const { response, request } = require('express');
+const e = require('express');
 
 const saltRounds = 10;
 
 class UserController extends BaseController {
-  constructor(model) {
+  constructor(model, db) {
     super(model);
+    this.Avatar = db.Avatar;
   };
 
-  async getUser(request, response) {
+  userLogin = async (request, response) => {
     try {
       const { username, password } = request.body;
 
@@ -26,24 +29,27 @@ class UserController extends BaseController {
 
           response.send({ loggedIn: true });
         } else {
-          response.send(false)
+          response.send({ loggedIn: false });
         }
       });
     } catch (error) {
       console.log(error);
-      response.send({ error })
+      response.send({ error });
     }
   };
 
-  async newUser(request, response) {
-    try {
-      const { username, password } = request.body;
+  userSignup = async (request, response) => {
+    const { username, password } = request.body;
 
+    try {
       // use bcrypt to hash passwords
       bcrypt.hash(password, saltRounds, async (error, hash) => {
         console.log(hash);
 
-        const user = await this.model.create({ username, password: hash });
+        const user = await this.model.create({
+          username,
+          password: hash,
+        });
 
         if (user) {
           // tell frontend that signup was successful
@@ -52,11 +58,22 @@ class UserController extends BaseController {
       });
     } catch (error) {
       console.log(error);
-      response.send({ error })
+      response.send({ error });
     }
   };
 
-  logout(request, response) {
+  getUser = async (request, response) => {
+    const { username } = request.params;
+    const user = await this.model.findOne({ where: { username } });
+
+    if (user) {
+      response.send({ userId: user.id });
+    } else {
+      response.send({ message: 'No user found.' });
+    }
+  }
+
+  logout = (request, response) => {
     // delete login cookies on logout
     if (request.loggedIn) {
       response.clearCookie('loggedIn');
@@ -66,6 +83,6 @@ class UserController extends BaseController {
     // redirect to login page
     response.redirect('/user/login');
   };
-};
+}
 
 module.exports = UserController;

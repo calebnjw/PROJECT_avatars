@@ -5,18 +5,22 @@ class BaseController {
     this.model = model;
   };
 
-  getLogin(request, response) {
+  getLogin = (request, response) => {
     response.render('login');
   };
 
-  getSignup(request, response) {
+  getSignup = (request, response) => {
     response.render('signup');
   };
 
-  getCreator(request, response) {
+  getCreator = (request, response) => {
     response.render('create');
   };
 
+  getProfile = (request, response) => {
+    const { username } = request.params
+    response.render('profile', { username });
+  }
 };
 
 module.exports = BaseController;

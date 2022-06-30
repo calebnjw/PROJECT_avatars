@@ -1,9 +1,10 @@
 const { Sequelize } = require('sequelize');
-const allConfig = require('../config/config.js');
+const allConfig = require('../config/config');
 
 // import models = require(./model.js
-const initUserModel = require('./users.js');
-const initAvatarModel = require('./avatars.js');
+const initUserModel = require('./users');
+const initAvatarModel = require('./avatars');
+const initAvatarLikesModel = require('./avatarLikes');
 
 const env = process.env.NODE_ENV || 'development';
 
@@ -22,6 +23,7 @@ const sequelize = new Sequelize(
 // db.Model = initModelModel()
 db.User = initUserModel(sequelize, Sequelize.DataTypes);
 db.Avatar = initAvatarModel(sequelize, Sequelize.DataTypes);
+db.AvatarLikes = initAvatarLikesModel(sequelize, Sequelize.DataTypes);
 
 // associations between models
 // db.Model.belongsTo(db.Model);
@@ -30,8 +32,10 @@ db.Avatar = initAvatarModel(sequelize, Sequelize.DataTypes);
 db.Avatar.belongsTo(db.User);
 db.User.hasMany(db.Avatar);
 
-db.Avatar.belongsToMany(db.User, { through: 'avatar_likes' });
-db.User.belongsToMany(db.Avatar, { through: 'avatar_likes' });
+db.User.hasMany(db.AvatarLikes);
+db.Avatar.hasMany(db.AvatarLikes);
+db.AvatarLikes.belongsTo(db.User);
+db.AvatarLikes.belongsTo(db.Avatar);
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

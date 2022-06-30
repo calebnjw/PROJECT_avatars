@@ -1,17 +1,5 @@
 body {
-  background-color: black;
-  color: gainsboro;
-  font-family: "IBM Plex Mono", "Courier New", Courier, monospace;
-}
-
-.btn {
-  border-radius: 0;
-  border-width: 0.1em;
-}
-
-.nav-tabs .nav-link {
-  border-radius: 0;
-  border-width: 0.1em;
+  font-family: "IBM Plex Sans", Arial, Helvetica, sans-serif;
 }
 
 #canvas-container {
@@ -40,4 +28,12 @@ body {
 
 .selected {
   border: 0.2em solid #d63e45;
+}
+
+.red {
+  color: red;
+}
+
+.card {
+  width: 320px;
 }

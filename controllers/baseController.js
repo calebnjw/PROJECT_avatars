@@ -5,21 +5,20 @@ class BaseController {
     this.model = model;
   };
 
-  getLogin = (request, response) => {
+  renderLogin = (request, response) => {
     response.render('login');
   };
 
-  getSignup = (request, response) => {
+  renderSignup = (request, response) => {
     response.render('signup');
   };
 
-  getCreator = (request, response) => {
+  renderCreator = (request, response) => {
     response.render('create');
   };
 
-  getProfile = (request, response) => {
-    const { username } = request.params
-    response.render('profile', { username });
+  renderProfile = (request, response) => {
+    response.render('profile');
   }
 };
 

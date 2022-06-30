@@ -20,6 +20,7 @@ title.innerText = 'Avatar Creator';
 
 const avatarSource = document.createElement('img');
 avatarSource.classList.add('d-none');
+avatarSource.src = SPRITESHEET;
 const canvas = document.createElement('canvas');
 canvas.height = CROPSIZE;
 canvas.width = CROPSIZE;
@@ -142,8 +143,6 @@ const drawAvatar = () => {
  * @param { number } part - The index of the part we are updating
  */
 const updateLayer = (layer, part) => {
-  console.log('Update!');
-
   // remove class from old part
   const oldPart = layers[layer]['0-0'];
   const previous = document.getElementById(`${oldPart[0]}-${oldPart[1]}`);
@@ -164,8 +163,6 @@ const updateLayer = (layer, part) => {
  * where first items of each section / layer are selected.
  */
 const resetAvatar = () => {
-  console.log('Reset!');
-
   updateLayer(0, 0);
   updateLayer(1, 0);
   updateLayer(2, 0);
@@ -175,8 +172,6 @@ const resetAvatar = () => {
  * Randomises the avatar.
  */
 const shuffleAvatar = () => {
-  console.log('Shuffle!');
-
   const r1 = Math.floor(Math.random() * 5);
   const r2 = Math.floor(Math.random() * 5);
   const r3 = Math.floor(Math.random() * 5);
@@ -187,7 +182,7 @@ const shuffleAvatar = () => {
 };
 
 /**
- * Exports the canvas image into a png for the user to download
+ * Exports the canvas image into a png for the user to download.
  */
 const exportImage = () => {
   const data = canvas.toDataURL();
@@ -199,19 +194,19 @@ const exportImage = () => {
 };
 
 /**
- * Passes layer data to the backend to save into db with associated user
+ * Passes layer data to the backend to save into db with associated user.
  */
 const saveAvatar = async () => {
   const { data } = await axios.post('/avatar/save', {
     avatarContents: layers,
   });
 
-  console.log(data.username);
-  // window.location.href = `/user/${username}`;
+  const { username } = data;
+
+  window.location.href = `/user/${username}`;
 };
 
 // once the image source is loaded
-avatarSource.src = SPRITESHEET;
 avatarSource.onload = () => {
   // get the original width and height of the source spritesheet
   const sourceWidth = avatarSource.naturalWidth;
@@ -231,6 +226,7 @@ avatarSource.onload = () => {
   });
 };
 
+// add event listeners to the buttons on the page
 resetButton.addEventListener('click', resetAvatar);
 shuffleButton.addEventListener('click', shuffleAvatar);
 downloadButton.addEventListener('click', exportImage);

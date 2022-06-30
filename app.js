@@ -47,10 +47,9 @@ app.use((request, response, next) => {
   next();
 });
 
-app.get('/', (request, response) => response.redirect('/users/login'))
+app.get('/', (request, response) => response.redirect('/user/login'));
 app.use('/user', userRouter);
 app.use('/avatar', avatarRouter);
-
 
 const PORT = 3004;
 app.listen(PORT, () => console.log(`App is listening on ${PORT}`));

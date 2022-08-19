@@ -35,11 +35,11 @@ module.exports = {
           allowNull: false,
           type: Sequelize.DATE,
         },
-      }
+      },
     );
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('avatar_likes');
-  }
+  },
 };
